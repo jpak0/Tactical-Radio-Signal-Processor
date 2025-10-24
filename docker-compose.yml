@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  signal-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tactical-radio-signal-processor:latest
+    container_name: signal-processor
+    volumes:
+      # Mount output directory for visualization results
+      - ./outputs:/app/outputs
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: /bin/bash -c "echo 'Tactical Radio Signal Processor - Docker Container' && python3 test_processor.py"
+
+  # Service for running the demo
+  demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tactical-radio-signal-processor:latest
+    container_name: signal-processor-demo
+    volumes:
+      - ./outputs:/app/outputs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MPLBACKEND=Agg  # Non-interactive matplotlib backend
+    command: python3 demo.py
+
+  # Service for running benchmarks
+  benchmark:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tactical-radio-signal-processor:latest
+    container_name: signal-processor-benchmark
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python3 benchmark.py
+
+  # Interactive development container
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tactical-radio-signal-processor:latest
+    container_name: signal-processor-dev
+    volumes:
+      - .:/app
+      - ./outputs:/app/outputs
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+    command: /bin/bash

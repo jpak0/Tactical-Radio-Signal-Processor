@@ -19,10 +19,12 @@ __pycache__/
 *.swo
 
 # Output files
-outputs/
+outputs/*.png
+outputs/*.pdf
 results/
 *.png
 *.pdf
+!outputs/README.md
 
 # CMake files
 CMakeCache.txt

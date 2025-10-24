@@ -49,17 +49,37 @@ This project demonstrates understanding of these core concepts at a fundamental 
 
 ## Quick Start
 
-### Prerequisites
+### Option 1: Docker (Recommended)
+
+```bash
+# Build and run with Docker Compose
+docker-compose up signal-processor  # Run tests
+docker-compose up demo              # Run demonstration
+docker-compose up benchmark         # Run benchmarks
+
+# Or build and run directly
+docker build -t tactical-radio-signal-processor .
+docker run --rm tactical-radio-signal-processor
+```
+
+See [DOCKER.md](DOCKER.md) for detailed Docker instructions.
+
+### Option 2: Native Build
+
+#### Prerequisites
 
 ```bash
 # macOS
 brew install cmake fftw python3
 
+# Linux (Ubuntu/Debian)
+sudo apt-get install cmake libfftw3-dev python3 python3-pip
+
 # Install Python dependencies
 pip3 install numpy scipy matplotlib pytest pybind11
 ```
 
-### Build & Run
+#### Build & Run
 
 ```bash
 # Build the C++ module
@@ -81,8 +101,12 @@ python3 test_processor.py
 ```
 tactical-radio-signal-processing/
 ├── README.md                          # This file
+├── DOCKER.md                          # Docker setup guide
 ├── CMakeLists.txt                     # Build configuration
 ├── build.sh                           # Build script
+├── Dockerfile                         # Docker image definition
+├── docker-compose.yml                 # Docker Compose configuration
+├── .dockerignore                      # Docker build exclusions
 ├── src/
 │   ├── signal_processor.h             # C++ header
 │   ├── signal_processor.cpp           # C++ implementation

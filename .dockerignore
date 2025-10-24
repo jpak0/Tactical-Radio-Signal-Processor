@@ -1,0 +1,43 @@
+# Build artifacts
+build/
+*.so
+*.o
+*.a
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Output files
+outputs/
+results/
+*.png
+*.pdf
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Scripts
+setup_git_history.sh
+
+# Documentation (will be copied selectively)
+tests/
+
+# macOS
+.DS_Store

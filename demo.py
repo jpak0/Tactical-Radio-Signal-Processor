@@ -194,7 +194,9 @@ def main():
     plt.tight_layout()
 
     # Save the plot
-    output_file = 'signal_processing_results.png'
+    import os
+    os.makedirs('outputs', exist_ok=True)
+    output_file = 'outputs/signal_processing_results.png'
     plt.savefig(output_file, dpi=150, bbox_inches='tight')
     print(f"  - Plot saved to: {output_file}")
 

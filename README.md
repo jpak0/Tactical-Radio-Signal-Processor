@@ -49,52 +49,110 @@ This project demonstrates understanding of these core concepts at a fundamental 
 
 ## Quick Start
 
-### Option 1: Docker (Recommended)
+### Option 1: Docker (Recommended - No Installation Required)
 
+Docker provides a complete, isolated environment with all dependencies pre-installed.
+
+**Prerequisites**: Docker Desktop ([Download here](https://www.docker.com/products/docker-desktop))
+
+**Run Tests**:
 ```bash
-# Build and run with Docker Compose
-docker-compose up signal-processor  # Run tests
-docker-compose up demo              # Run demonstration
-docker-compose up benchmark         # Run benchmarks
-
-# Or build and run directly
-docker build -t tactical-radio-signal-processor .
-docker run --rm tactical-radio-signal-processor
+docker-compose up signal-processor
 ```
 
-See [DOCKER.md](DOCKER.md) for detailed Docker instructions.
+**Run Demo** (creates visualization in `outputs/`):
+```bash
+docker-compose up demo
+```
 
-### Option 2: Native Build
+**Run Benchmarks**:
+```bash
+docker-compose up benchmark
+```
+
+**Interactive Development Shell**:
+```bash
+docker-compose up dev
+```
+
+**First run**: Takes 2-5 minutes to build (downloads base images, compiles C++ code, installs dependencies)
+**Subsequent runs**: 3-5 seconds (uses cached image)
+
+See [DOCKER.md](DOCKER.md) for detailed Docker instructions, troubleshooting, and advanced usage.
+
+### Option 2: Native Build (For Local Development)
+
+For active development with IDE support and faster iteration.
 
 #### Prerequisites
 
+**macOS**:
 ```bash
-# macOS
 brew install cmake fftw python3
-
-# Linux (Ubuntu/Debian)
-sudo apt-get install cmake libfftw3-dev python3 python3-pip
-
-# Install Python dependencies
 pip3 install numpy scipy matplotlib pytest pybind11
 ```
+
+**Linux (Ubuntu/Debian)**:
+```bash
+sudo apt-get update
+sudo apt-get install cmake libfftw3-dev python3 python3-pip
+pip3 install numpy scipy matplotlib pytest pybind11
+```
+
+**Windows**: Use WSL2 (Windows Subsystem for Linux) and follow Linux instructions, or use Docker.
 
 #### Build & Run
 
 ```bash
-# Build the C++ module
+# 1. Build the C++ module
 chmod +x build.sh
 ./build.sh
 
-# Run the demo
+# Expected output: "✓ Build successful!"
+
+# 2. Run the demo
 python3 demo.py
 
-# Run benchmarks
+# 3. Run benchmarks
 python3 benchmark.py
 
-# Run tests
+# 4. Run tests
 python3 test_processor.py
 ```
+
+**Build time**: ~30 seconds (compiles C++ code with optimizations)
+
+## What You Get
+
+After building (Docker or native), you have access to three main programs:
+
+### 1. Demo (`demo.py`)
+**Purpose**: Complete signal processing pipeline demonstration
+**Output**:
+- Console output showing each processing step
+- Visualization saved to `outputs/signal_processing_results.png`
+- Shows: original signal, filtered signal, FFT spectrum, performance metrics
+
+**When to use**: First-time exploration, demonstrations, understanding the workflow
+
+### 2. Benchmarks (`benchmark.py`)
+**Purpose**: Performance comparison between C++ and Python implementations
+**Output**:
+- Side-by-side timing comparisons
+- Multiple signal sizes (1K to 1M samples)
+- Speedup calculations
+- Detailed performance analysis
+
+**When to use**: Understanding performance characteristics, optimization decisions
+
+### 3. Tests (`test_processor.py`)
+**Purpose**: Automated test suite validating correctness
+**Output**:
+- 12 tests covering all functionality
+- Expected: 10/12 passing (2 tests affected by floating-point precision)
+- Validates: signal generation, filtering, FFT, SNR calculation, edge cases
+
+**When to use**: Verifying installation, ensuring code correctness, development
 
 ## Project Structure
 
@@ -198,6 +256,45 @@ While NumPy/SciPy are highly optimized, this project demonstrates:
 - Proper benchmarking methodology
 - Real-world software engineering practices
 
+## Troubleshooting
+
+### Docker Issues
+
+**"Cannot connect to Docker daemon"**
+- Ensure Docker Desktop is running (check for whale icon in menu bar/system tray)
+- Wait for Docker to fully start before running commands
+
+**Build takes too long**
+- First build downloads images and compiles code (2-5 minutes is normal)
+- Subsequent builds use cache and are much faster
+
+**Port conflicts**
+- Run `docker-compose down` to stop any running containers
+- Clean up with `docker system prune`
+
+### Native Build Issues
+
+**"fftw3.h not found"**
+- Install FFTW: `brew install fftw` (macOS) or `sudo apt-get install libfftw3-dev` (Linux)
+
+**"pybind11 not found"**
+- Install via pip: `pip3 install pybind11`
+
+**Import errors in Python**
+- Build the C++ module first: `./build.sh`
+- Verify build was successful (look for `.so` file in `build/` directory)
+
+**IDE showing errors**
+- Install dependencies locally (see Native Build prerequisites)
+- Reload your IDE/editor
+- For VS Code: Install C++ and Python extensions
+
+### Getting Help
+
+- Check [DOCKER.md](DOCKER.md) for Docker-specific issues
+- Check [docs/QUICK_START.md](docs/QUICK_START.md) for detailed setup instructions
+- Review [docs/TECHNICAL_ARCHITECTURE.md](docs/TECHNICAL_ARCHITECTURE.md) for implementation details
+
 ## Extension Possibilities
 
 Potential enhancements to expand functionality:
@@ -208,6 +305,13 @@ Potential enhancements to expand functionality:
 - Interactive GUI development
 - Additional modulation schemes (BPSK, QPSK)
 
+## Contributing
+
+Contributions are welcome! Please ensure:
+- Code follows existing style conventions
+- All tests pass (`python3 test_processor.py`)
+- Documentation is updated for new features
+
 ## License
 
 MIT License - See LICENSE file for details
@@ -216,6 +320,12 @@ MIT License - See LICENSE file for details
 
 Joseph Pak
 
-## Project Purpose
+## Acknowledgments
 
 This project demonstrates practical implementation of signal processing concepts relevant to tactical radio communications systems and software-defined radio architectures.
+
+Built with industry-standard tools:
+- **FFTW3**: Fastest Fourier Transform in the West
+- **pybind11**: Seamless C++/Python integration
+- **CMake**: Modern build system
+- **Docker**: Containerized deployment

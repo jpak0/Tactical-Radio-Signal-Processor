@@ -1,0 +1,19 @@
+CompileFlags:
+  Add:
+    # System include paths for macOS (Homebrew)
+    - "-I/opt/homebrew/include"
+    - "-I/usr/local/include"
+    # System include paths for Linux
+    - "-I/usr/include"
+    # Python include paths
+    - "-I/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+    - "-I/usr/local/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/include/python3.11"
+    - "-I/usr/include/python3.11"
+    # Common flags
+    - "-std=c++17"
+    - "-Wall"
+  Remove:
+    - "-W*"
+Diagnostics:
+  UnusedIncludes: None
+  MissingIncludes: None

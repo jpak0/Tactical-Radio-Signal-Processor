@@ -7,10 +7,29 @@ Run with: python3 test_processor.py
 Or with pytest: pytest test_processor.py -v
 """
 
-import signal_processor_cpp as sp
-import numpy as np
-import pytest
+import sys
 import math
+
+try:
+    import signal_processor_cpp as sp
+except ImportError as e:
+    print("\nERROR: Could not import signal_processor_cpp module")
+    print("This module must be built first.")
+    print("\nTo build:")
+    print("  chmod +x build.sh")
+    print("  ./build.sh")
+    print(f"\nDetails: {e}\n")
+    sys.exit(1)
+
+try:
+    import numpy as np
+    import pytest
+except ImportError as e:
+    print("\nERROR: Required Python packages not installed")
+    print("\nTo install:")
+    print("  pip3 install numpy pytest")
+    print(f"\nDetails: {e}\n")
+    sys.exit(1)
 
 class TestSignalGeneration:
     """Test signal generation functions"""

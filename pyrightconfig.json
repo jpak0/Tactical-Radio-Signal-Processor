@@ -1,0 +1,24 @@
+{
+  "include": [
+    "*.py",
+    "src"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "build",
+    ".pytest_cache"
+  ],
+  "reportMissingImports": "none",
+  "reportMissingTypeStubs": "none",
+  "pythonVersion": "3.11",
+  "pythonPlatform": "All",
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "pythonVersion": "3.11",
+      "extraPaths": [
+        "./build"
+      ]
+    }
+  ]
+}

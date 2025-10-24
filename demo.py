@@ -11,9 +11,29 @@ This demo shows the complete signal processing workflow:
 These operations form the core of tactical radio signal processing.
 """
 
-import signal_processor_cpp as sp
-import numpy as np
-import matplotlib.pyplot as plt
+import sys
+
+try:
+    import signal_processor_cpp as sp
+except ImportError as e:
+    print("\nERROR: Could not import signal_processor_cpp module")
+    print("This module must be built first.")
+    print("\nTo build:")
+    print("  chmod +x build.sh")
+    print("  ./build.sh")
+    print(f"\nDetails: {e}\n")
+    sys.exit(1)
+
+try:
+    import numpy as np
+    import matplotlib.pyplot as plt
+except ImportError as e:
+    print("\nERROR: Required Python packages not installed")
+    print("\nTo install:")
+    print("  pip3 install numpy matplotlib")
+    print(f"\nDetails: {e}\n")
+    sys.exit(1)
+
 import time
 
 def print_header(title):

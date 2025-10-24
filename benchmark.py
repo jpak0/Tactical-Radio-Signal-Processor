@@ -11,11 +11,30 @@ Evaluates:
 3. Real-world performance characteristics
 """
 
-import signal_processor_cpp as sp
-import numpy as np
-import scipy.signal
+import sys
 import time
 from typing import List, Tuple
+
+try:
+    import signal_processor_cpp as sp
+except ImportError as e:
+    print("\nERROR: Could not import signal_processor_cpp module")
+    print("This module must be built first.")
+    print("\nTo build:")
+    print("  chmod +x build.sh")
+    print("  ./build.sh")
+    print(f"\nDetails: {e}\n")
+    sys.exit(1)
+
+try:
+    import numpy as np
+    import scipy.signal
+except ImportError as e:
+    print("\nERROR: Required Python packages not installed")
+    print("\nTo install:")
+    print("  pip3 install numpy scipy")
+    print(f"\nDetails: {e}\n")
+    sys.exit(1)
 
 # ANSI color codes for pretty output
 class Colors:

@@ -30,3 +30,8 @@ results/
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
+
+# Local documentation (not for GitHub)
+FIX_REPORT.txt
+IDE_SETUP_GUIDE.txt
+DOCKER_QUICKSTART.txt

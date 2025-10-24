@@ -25,6 +25,7 @@ results/
 *.png
 *.pdf
 !outputs/README.md
+!outputs/signal_processing_results.png
 
 # CMake files
 CMakeCache.txt

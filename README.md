@@ -205,26 +205,77 @@ This project implements and demonstrates:
 
 ## Example Output
 
+### Visualization Results
+
+The demo generates a comprehensive visualization showing the complete signal processing pipeline:
+
+![Signal Processing Results](outputs/signal_processing_results.png)
+
+The visualization includes:
+- **Original Noisy Signal** (top-left) - 10 Hz sine wave with additive noise
+- **Filtered Signal** (top-right) - After low-pass filtering showing noise reduction
+- **FFT Spectrum** (bottom-left) - Frequency analysis with clear 10 Hz peak
+- **Performance Metrics** (bottom-right) - Processing times and SNR improvements
+
+### Terminal Output
+
 ```
 ============================================================
 SIGNAL PROCESSING PIPELINE DEMONSTRATION
 ============================================================
 
 Step 1: Generating test signal...
-  - Creating 10Hz sine wave with noise
-  - Signal-to-Noise Ratio: -3.90 dB
+  - Creating 10.0Hz sine wave with noise
+  - Signal-to-Noise Ratio: 2.90 dB
 
 Step 2: Applying low-pass filter...
   - Cutoff frequency: 0.1 (normalized)
   - Filter taps: 51
-  - Processing time: 1.12 ms
-  - SNR improvement: -3.90 dB → -3.15 dB
-  - Noise reduction: 0.75 dB
+  - Processing time: 0.09 ms
+  - SNR improvement: 2.90 dB → 10.15 dB
+  - Noise reduction: 7.24 dB
 
 Step 3: Performing FFT analysis...
-  - Processing time: 3.81 ms
+  - Processing time: 1.45 ms
   - Detected peak frequency: 10.0 Hz
   - Expected frequency: 10.0 Hz
+
+Step 4: Generating plots...
+  - Plot saved to: outputs/signal_processing_results.png
+
+============================================================
+PROCESSING COMPLETE
+============================================================
+
+Pipeline summary:
+  1. Generated 10 Hz sine wave with additive noise
+  2. Applied low-pass filter to remove high-frequency noise
+  3. Improved signal quality by 7.24 dB
+  4. Used FFT to detect signal frequency
+  5. Generated visualization of results
+```
+
+### Test Suite Output
+
+```
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-8.4.2, pluggy-1.6.0
+collected 12 items
+
+test_processor.py::TestSignalGeneration::test_generate_test_signal_length PASSED [  8%]
+test_processor.py::TestSignalGeneration::test_generate_test_signal_range PASSED [ 16%]
+test_processor.py::TestLowPassFilter::test_filter_preserves_length PASSED [ 25%]
+test_processor.py::TestLowPassFilter::test_filter_reduces_noise PASSED   [ 33%]
+test_processor.py::TestLowPassFilter::test_filter_removes_high_frequency PASSED [ 41%]
+test_processor.py::TestFFT::test_fft_output_length PASSED                [ 50%]
+test_processor.py::TestFFT::test_fft_detects_frequency PASSED            [ 58%]
+test_processor.py::TestFFT::test_fft_parseval_theorem XFAIL              [ 66%]
+test_processor.py::TestSNR::test_snr_clean_signal PASSED                 [ 75%]
+test_processor.py::TestSNR::test_snr_increases_with_quality PASSED       [ 83%]
+test_processor.py::TestEdgeCases::test_small_signal PASSED               [ 91%]
+test_processor.py::TestEdgeCases::test_single_sample PASSED              [100%]
+
+======================== 11 passed, 1 xfailed in 0.04s =========================
 ```
 
 ## Application Context

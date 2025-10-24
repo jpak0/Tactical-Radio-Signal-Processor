@@ -9,8 +9,13 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     libfftw3-dev \
+    pkg-config \
+    pybind11-dev \
     git \
     && rm -rf /var/lib/apt/lists/*
+
+# Install pybind11 via pip for the build script check
+RUN pip install --no-cache-dir pybind11
 
 # Set working directory
 WORKDIR /app
@@ -27,7 +32,7 @@ FROM python:3.11-slim
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
-    libfftw3-3 \
+    libfftw3-double3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
